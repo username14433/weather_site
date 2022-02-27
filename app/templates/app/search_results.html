@@ -1,0 +1,12 @@
+{%extends 'app/main.html'%}
+{%block content%}
+
+{%for city in object_list%}
+<div>
+    <ul>
+        <li><a href="#">{{city.name}}, {{city.country}}</a></li>
+    </ul>
+</div>
+{%endfor%}
+
+{%endblock%}
