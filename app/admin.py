@@ -1,7 +1,6 @@
 from django.contrib import admin
+from . import models
 
-from .models import WeatherCard, City
+models = (models.Location, models.WeatherCard)
 
-models = (WeatherCard, City)
-for model in models:
-    admin.site.register(model)
+admin.site.register(models)

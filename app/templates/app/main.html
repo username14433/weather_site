@@ -6,8 +6,6 @@
 </head>
 <body>
 <h1>Home, dear home...</h1>
-<form action="{%url 'search'%}" method="get">
-    <input name='q' type="text" placeholder="Search...">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -16,24 +14,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
             integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
             crossorigin="anonymous"></script>
-
+<form action="{%url 'search'%}" method="get">
+    <input name='q' type="text" placeholder="Search...">
 </form>
-{%for condition in weather_conditions%}
 {%block content%}
 <div class="card" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">Погода в вашем регионе</h5>
+        <h5 class="card-title"></h5>
         <h6 class="card-subtitle mb-2 text-muted">Москва</h6>
-        <p class="card-text">температура: {{condition.temperature}}°</p>
-        <p class="card-text">влажность: {{condition.humidity}}%</p>
-        <p class="card-text">давление: {{condition.pressure}}мм.рт.ст</p>
-        <p class="card-text">вероятность дождя: {{condition.rain_chance}}%</p>
-        <p class="card-text">часть дня: {{condition.part_of_the_day}}</p>
+        <p class="card-text">Температура: {{temperature}}°</p>
+        <p class="card-text">Ощущается как: {{temp_feels_like}}°</p>
+        <p class="card-text">Влажность: {{humidity}}%</p>
+        <p class="card-text">Давление: {{pressure}}мм.рт.ст.</p>
+        <p class="card-text">Вероятность дождя: {{rain_chance}}%</p>
+        <p class="card-text">Видимость: {{visibility}}m.</p>
+        <p class="card-text">Скорость ветра: {{speed_wind}}km/h</p>
+        <p class="card-text">Облачность: {{cloudiness}}%</p>
         <a href="{%url 'city_weather'%}" class="card-link">Detailed city weather</a>
         <a href="#" class="card-link">Another link</a>
     </div>
 </div>
 {%endblock content%}
-{%endfor%}
 </body>
 </html>

@@ -1,12 +1,17 @@
 {%extends 'app/main.html'%}
 {%block content%}
-
-{%for city in object_list%}
-<div>
-    <ul>
-        <li><a href="#">{{city.name}}, {{city.country}}</a></li>
-    </ul>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <h6 class="card-subtitle mb-2 text-muted">Москва</h6>
+        <p class="card-text">температура: {{temperature}}°</p>
+        <p class="card-text">влажность: {{humidity}}%</p>
+        <p class="card-text">давление: {{pressure}}мм.рт.ст</p>
+        <p class="card-text">вероятность дождя: {{rain_chance}}%</p>
+        <p class="card-text">часть дня: {{part_of_the_day}}</p>
+        <a href="{%url 'city_weather'%}" class="card-link">Detailed city weather</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
 </div>
-{%endfor%}
-
 {%endblock%}
+
