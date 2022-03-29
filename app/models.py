@@ -2,8 +2,7 @@ from django.db import models
 
 
 class Location(models.Model):
-    city = models.CharField(verbose_name="Название города", max_length=255)
-    country = models.CharField(verbose_name="Страна", max_length=255)
+    city = models.CharField(verbose_name="Название города", max_length=255, default="Moscow")
 
 
 class WeatherCard(models.Model):

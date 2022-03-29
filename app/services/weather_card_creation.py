@@ -1,14 +1,23 @@
-from .. import models
 from . import weather_api
 from .. import services
-
-def create_weather_card(model, request):
-    weather_data = services.weather_api.get_weather_conditions(request)
-    weather_card = model.objects.create(temperature=weather_data['temperature'],
-                         pressure=weather_data['pressure'],
-                         humidity=weather_data['humidity'],
-                         visibility=weather_data['temp_feels_like'],
-                         cloudiness=weather_data['visibility'],
-                         temp_feels_like=weather_data['cloudiness'],
-                         speed_wind=weather_data['speed_wind'])
-
+from . import operations_with_input_search, create_elements_for_weather_card
+from .. models import Location, WeatherCard
+def create_weather_card_locaion(request):
+    city = operations_with_input_search.get_search_input(request)
+    rain_chance = create_elements_for_weather_card.create_daypart_rain_chance()['rain_chance']
+    part_of_the_day = create_elements_for_weather_card.create_daypart_rain_chance()['part_of_the_day']
+    if city:
+        weather_data = services.weather_api.get_weather_conditions(city)
+        location = Location.objects.create(city=city)
+        weather_card = WeatherCard.objects.create(temperature=weather_data['temperature'],
+                                            pressure=weather_data['pressure'],
+                                            rain_chance=rain_chance,
+                                            humidity=weather_data['humidity'],
+                                            visibility=weather_data['visibility'],
+                                            cloudiness=weather_data['cloudiness'],
+                                            temp_feels_like=weather_data['temp_feels_like'],
+                                            speed_wind=weather_data['speed_wind'],
+                                            part_of_the_day=part_of_the_day,
+                                            location=location
+                                            )
+        return weather_card

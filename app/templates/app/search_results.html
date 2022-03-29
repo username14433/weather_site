@@ -3,15 +3,20 @@
 <div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title"></h5>
-        <h6 class="card-subtitle mb-2 text-muted">Москва</h6>
-        <p class="card-text">температура: {{temperature}}°</p>
-        <p class="card-text">влажность: {{humidity}}%</p>
-        <p class="card-text">давление: {{pressure}}мм.рт.ст</p>
-        <p class="card-text">вероятность дождя: {{rain_chance}}%</p>
-        <p class="card-text">часть дня: {{part_of_the_day}}</p>
+        <h6 class="card-subtitle mb-2 text-muted">{{city}}</h6>
+        <p class="card-text">Температура: {{card.temperature}}°</p>
+        <p class="card-text">Ощущается как: {{card.temp_feels_like}}°</p>
+        <p class="card-text">Влажность: {{card.humidity}}%</p>
+        <p class="card-text">Давление: {{card.pressure}}мм.рт.ст</p>
+        <p class="card-text">Вероятность дождя: {{card.rain_chance}}%</p>
+        <p class="card-text">Часть дня: {{card.part_of_the_day}}</p>
+        <p class="card-text">Видимость: {{card.visibility}}m</p>
+        <p class="card-text">Скорость ветра: {{card.speed_wind}}m/s</p>
+        <p class="card-text">Облака: {{card.cloudiness}}</p>
         <a href="{%url 'city_weather'%}" class="card-link">Detailed city weather</a>
         <a href="#" class="card-link">Another link</a>
     </div>
 </div>
+<button><a href="{%url 'home'%}">На главную</a></button>
 {%endblock%}
 
