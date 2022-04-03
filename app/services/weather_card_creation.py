@@ -1,9 +1,11 @@
+from django import forms
+
 from . import weather_api
 from .. import services
 from . import operations_with_input_search, create_elements_for_weather_card
 from .. models import Location, WeatherCard
-def create_weather_card_locaion(request):
-    city = operations_with_input_search.get_search_input(request)
+from .. import forms
+def create_weather_card_locaion(city):
     rain_chance = create_elements_for_weather_card.create_daypart_rain_chance()['rain_chance']
     part_of_the_day = create_elements_for_weather_card.create_daypart_rain_chance()['part_of_the_day']
     if city:

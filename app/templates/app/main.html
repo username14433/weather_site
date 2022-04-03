@@ -16,7 +16,7 @@
             crossorigin="anonymous"></script>
 <form action="{%url 'search'%}" method="post">
     {% csrf_token %}
-    <input name='q' type="text" placeholder="Search...">
+    <div>{{form}}</div>
     <input type="submit" value="Найти" >
 </form>
 
