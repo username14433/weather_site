@@ -1,4 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+
+User = get_user_model()
 
 
 class Location(models.Model):
@@ -16,3 +19,13 @@ class WeatherCard(models.Model):
     cloudiness = models.CharField(verbose_name="Облачность", max_length=25)
     temp_feels_like = models.CharField(verbose_name="Ощущается как", max_length=25)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name='Локация')
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    bookmark = models.BooleanField(default=False)
+    slug = models.SlugField(unique=True, verbose_name="Слаг", max_length=255)
+
+
+class ChosenWeatherCard(models.Model):
+    user = models.ForeignKey(User, verbose_name='Пользователь', null=True, blank=True,
+                             on_delete=models.CASCADE)
+    card = models.ForeignKey(WeatherCard, verbose_name="Погодная карточка", on_delete=models.CASCADE, null=True,
+                             blank=True)

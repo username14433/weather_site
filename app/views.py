@@ -1,14 +1,15 @@
-from django.db.models import Q
 from django.views import View
 from django.shortcuts import render, redirect
-from .models import Location, WeatherCard
+from .models import Location, WeatherCard, ChosenWeatherCard
 from . import forms
-from .services import weather_card_creation, create_weather_card_for_home_page
-
+from .services import weather_card_creation, create_weather_card_for_home_page, get_weather_card, config
 
 class HomeView(View):
     def get(self, request):
-        weather_card = create_weather_card_for_home_page.create_home_weather_card(request)
+        user = request.user
+        user.auntificate()
+        city = config.BASE_CITY
+        weather_card = weather_card_creation.create_weather_card_locaion(request, city)
         form = forms.SearchForm()
         context = {'card': weather_card, 'form': form}
         return render(request, 'app/main.html',  context)
@@ -16,27 +17,47 @@ class HomeView(View):
 
 class SearchResultsView(View):
     def get(self, request):
-        weather_card = create_weather_card_for_home_page.create_home_weather_card(request)
-        context = {'card': weather_card}
+        form = forms.SearchForm(request.POST or None)
+        city = form.cleaned_data['city']
+        weather_card = weather_card_creation.create_weather_card_locaion(request, city)
+        weather_cards = WeatherCard.objects.filter(user=request.user)
+        context = {'card': weather_card, 'form': form}
         return render(request, 'app/search_results.html', context)
     def post(self, request):
         form = forms.SearchForm(request.POST or None)
         context = {'form': form}
         if form.is_valid():
-            city = form.cleaned_data['search_input']
-            print(city)
-            weather_card = weather_card_creation.create_weather_card_locaion(city)
+            city = form.cleaned_data['city']
+            weather_card = weather_card_creation.create_weather_card_locaion(request, city)
             context['card'] = weather_card
-            return redirect('search')
+            context['city'] = city
         return render(request, 'app/search_results.html', context)
 
 
 class CityWeatherView(View):
     def get(self, request):
-        query = self.request.GET.get('q')
-        city_weather_conditions = WeatherCard.objects.filter(Q(city__icontains=query))
-        context = {'city_weather_conditions': city_weather_conditions}
-        return render(request, 'app/city_weather.html', context)
+        return render(request, 'app/city_weather.html', {})
+
+
+class ChosenCityWeather(View):
+        def get(self, request, **kwargs):
+            user = request.user
+            card = get_weather_card.get_weather_card(kwargs)
+            #получить карточку на котрую нажали по id или по request (посмотреть документацию)
+            card.bookmark = True
+            cards = WeatherCard.objects.filter(bookmard=True)
+            context = {'cards': cards}
+            return render(request, 'app/chosen_weather_cities.html', context)
+
+# class BookmarkWeatherCard(View):
+#     def get(self, request, **kwargs):
+#         user = request.user
+#         card = get_weather_card.get_weather_card(kwargs)
+#         #получить карточку на котрую нажали по id или по request (посмотреть документацию)
+#         card.bookmark = True
+#         cards = WeatherCard.objects.filter(bookmard=True)
+#         context = {'cards': cards}
+#         return render(request, 'app/chosen_weather_cities.html', context)
 
 
 

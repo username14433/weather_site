@@ -1,12 +1,10 @@
-{%extends 'app/main.html'%}
+{%extends 'main.html'%}
 {%block content%}
-
-
-
+{%for card in cards%}
 <div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title"></h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{city}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Москва</h6>
         <p class="card-text">Температура: {{card.temperature}}°</p>
         <p class="card-text">Ощущается как: {{card.temp_feels_like}}°</p>
         <p class="card-text">Влажность: {{card.humidity}}%</p>
@@ -18,10 +16,8 @@
         <p class="card-text">Облака: {{card.cloudiness}}</p>
         <a href="{%url 'city_weather'%}" class="card-link">Detailed city weather</a>
         <a href="#" class="card-link">Another link</a>
-        <a href="{%url 'bookmark weather'%}">Добавить в избранное</a>
-
+        <a href="{%url 'bookmark weather'%}">Добавить в мзбранное</a>
     </div>
 </div>
-<button><a href="{%url 'home'%}">На главную</a></button>
+{%endfor%}
 {%endblock%}
-

@@ -7,6 +7,7 @@ def create_home_weather_card(request):
     part_of_the_day = create_elements_for_weather_card.create_daypart_rain_chance()['part_of_the_day']
     weather_data = services.weather_api.get_weather_conditions('Moscow')
     location = Location.objects.create(city='Moscow')
+    print('------', weather_data['temperature'])
     weather_card = WeatherCard.objects.create(temperature=weather_data['temperature'],
                                               pressure=weather_data['pressure'],
                                               rain_chance=rain_chance,
@@ -16,6 +17,7 @@ def create_home_weather_card(request):
                                               temp_feels_like=weather_data['temp_feels_like'],
                                               speed_wind=weather_data['speed_wind'],
                                               part_of_the_day=part_of_the_day,
-                                              location=location
+                                              location=location,
+                                              user=request.user
                                               )
     return weather_card

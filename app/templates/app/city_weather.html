@@ -1,16 +1,4 @@
 {%extends 'app/main.html'%}
 {%block content%}
-{%for city_condition in city_weather_conditions%}
-<div class="card" style="width: 54rem;">
-    <div class="card-body">
-        <h5 class="card-title">Погода в вашем регионе</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Москва</h6>
-        <p class="card-text">температура: {{city_condition.temperature}}°</p>
-        <p class="card-text">влажность: {{city_condition.humidity}}%</p>
-        <p class="card-text">давление: {{city_condition.pressure}}мм.рт.ст</p>
-        <p class="card-text">вероятность дождя: {{city_condition.rain_chance}}%</p>
-        <p class="card-text">часть дня: {{city_condition.part_of_the_day}}</p>
-    </div>
-</div>
-{%endfor%}
+<h1>HELLO!</h1>
 {%endblock%}
