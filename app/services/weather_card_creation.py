@@ -2,7 +2,7 @@ from . import weather_api
 from .. import services
 from . import operations_with_input_search, create_elements_for_weather_card
 from .. models import Location, WeatherCard
-def create_weather_card_locaion(request, city):
+def create_weather_card_locaion(city):
     rain_chance = create_elements_for_weather_card.create_daypart_rain_chance()['rain_chance']
     part_of_the_day = create_elements_for_weather_card.create_daypart_rain_chance()['part_of_the_day']
     if not city:
@@ -18,7 +18,6 @@ def create_weather_card_locaion(request, city):
                                               temp_feels_like=weather_data['temp_feels_like'],
                                               speed_wind=weather_data['speed_wind'],
                                               part_of_the_day=part_of_the_day,
-                                              location=location,
-                                              user=request.user
+                                              location=location
                                               )
     return weather_card

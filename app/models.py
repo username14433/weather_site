@@ -19,7 +19,7 @@ class WeatherCard(models.Model):
     cloudiness = models.CharField(verbose_name="Облачность", max_length=25)
     temp_feels_like = models.CharField(verbose_name="Ощущается как", max_length=25)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name='Локация')
-    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, null=True)
+    # user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, null=True)
     bookmark = models.BooleanField(default=False)
     slug = models.SlugField(unique=True, verbose_name="Слаг", max_length=255)
 

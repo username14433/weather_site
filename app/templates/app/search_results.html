@@ -2,26 +2,34 @@
 {%block content%}
 
 
-
+{%for card in weather_cards%}
 <div class="card" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title"></h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{city}}</h6>
-        <p class="card-text">Температура: {{card.temperature}}°</p>
-        <p class="card-text">Ощущается как: {{card.temp_feels_like}}°</p>
-        <p class="card-text">Влажность: {{card.humidity}}%</p>
-        <p class="card-text">Давление: {{card.pressure}}мм.рт.ст</p>
-        <p class="card-text">Вероятность дождя: {{card.rain_chance}}%</p>
-        <p class="card-text">Часть дня: {{card.part_of_the_day}}</p>
-        <p class="card-text">Видимость: {{card.visibility}}m</p>
-        <p class="card-text">Скорость ветра: {{card.speed_wind}}m/s</p>
-        <p class="card-text">Облака: {{card.cloudiness}}</p>
-        <a href="{%url 'city_weather'%}" class="card-link">Detailed city weather</a>
+        <h6 style="color: #ffffff" class="card-subtitle mb-2 text-muted">{{city}}</h6>
+        <p style="color: #ffffff"  class="card-text">Температура: {{card.temperature}}°</p>
+        <p style="color: #ffffff" class="card-text">Ощущается как: {{card.temp_feels_like}}°</p>
+        <p style="color: #ffffff" class="card-text">Влажность: {{card.humidity}}%</p>
+        <p style="color: #ffffff" class="card-text">Давление: {{card.pressure}}мм.рт.ст</p>
+        <p style="color: #ffffff" class="card-text">Вероятность дождя: {{card.rain_chance}}%</p>
+        <p style="color: #ffffff" class="card-text">Часть дня: {{card.part_of_the_day}}</p>
+        <p style="color: #ffffff" class="card-text">Видимость: {{card.visibility}}m</p>
+        <p style="color: #ffffff" class="card-text">Скорость ветра: {{card.speed_wind}}m/s</p>
+        <p style="color: #ffffff" class="card-text">Облака: {{card.cloudiness}}</p>
+        <a style="color: #ffffff" href="{%url 'city_weather'%}" class="card-link">Detailed city weather</a>
+        {%if part_of_the_day == config.DAY%}
+            <img src="{{'app/utilits/день.jpg'}}">
+        {%endif%}
+        {%if part_of_the_day == config.MORNING%}
+            <img src="{{'app/utilits/утро.jpg'}}">
+        {%endif%}
+        {%if part_of_the_day == config.EVENING%}
+            <img src="{{'app/utilits/вечер.jpg'}}">
+        {%endif%}
         <a href="#" class="card-link">Another link</a>
-        <a href="{%url 'bookmark weather'%}">Добавить в избранное</a>
-
     </div>
 </div>
 <button><a href="{%url 'home'%}">На главную</a></button>
+{%endfor%}
 {%endblock%}
 
