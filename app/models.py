@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -21,7 +22,13 @@ class WeatherCard(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name='Локация')
     # user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, null=True)
     bookmark = models.BooleanField(default=False)
-    slug = models.SlugField(unique=True, verbose_name="Слаг", max_length=255)
+    slug = models.SlugField(unique=True, verbose_name="Слаг", null=True)
+
+    def get_absolute_url(self):
+        return reverse('card', kwargs={'slug': self.slug})
+
+    def __str__(self):
+        return f"Погода в {self.location}"
 
 
 class ChosenWeatherCard(models.Model):
@@ -29,3 +36,6 @@ class ChosenWeatherCard(models.Model):
                              on_delete=models.CASCADE)
     card = models.ForeignKey(WeatherCard, verbose_name="Погодная карточка", on_delete=models.CASCADE, null=True,
                              blank=True)
+
+    def __str__(self):
+        return f"Погода в {self.card.location}"

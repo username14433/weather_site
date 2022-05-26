@@ -1,6 +1,5 @@
 {%extends 'app/main.html'%}
-{%block content%}
-
+{%block search_content%}
 
 {%for card in weather_cards%}
 <div class="card" style="width: 18rem;">
@@ -31,5 +30,5 @@
 </div>
 <button><a href="{%url 'home'%}">На главную</a></button>
 {%endfor%}
-{%endblock%}
+{%endblock search_content%}
 
